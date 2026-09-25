@@ -10,10 +10,18 @@ output: github_document
 library(tidyverse)
 library(dplyr)
 data("penguins", package = "palmerpenguins")
-
+penguins
 ```
 
 The penguins dataset includes size measurments for adult foraging penguins near Palmer Station Antartica.
 It contains measurements for `r nrow(penguins)` penguins across `r ncol(penguins)` variables. 
 The mean flipper length is `r mean(pull(penguins, flipper_length_mm), na.rm = TRUE)`
 `
+```{r}
+# scatterplot
+
+penguin_plot = ggplot(penguins, aes(x= bill_length_mm, y= flipper_length_mm, color = species)) + geom_point()
+
+ggsave(penguin_plot)
+```
+
