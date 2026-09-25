@@ -1,0 +1,19 @@
+---
+title: "p8105_hw1_jv3014"
+author: "Jia Varkey"
+date: "2026-09-22"
+output: github_document
+---
+
+## Problem 1
+```{r echo = F, message = F}
+library(tidyverse)
+library(dplyr)
+data("penguins", package = "palmerpenguins")
+
+```
+
+The penguins dataset includes size measurments for adult foraging penguins near Palmer Station Antartica.
+It contains measurements for `r nrow(penguins)` penguins across `r ncol(penguins)` variables. 
+The mean flipper length is `r mean(pull(penguins, flipper_length_mm), na.rm = TRUE)`
+`
