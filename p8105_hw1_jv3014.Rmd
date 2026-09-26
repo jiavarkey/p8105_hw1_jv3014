@@ -8,20 +8,48 @@ output: github_document
 ## Problem 1
 ```{r echo = F, message = F}
 library(tidyverse)
-library(dplyr)
 data("penguins", package = "palmerpenguins")
 penguins
 ```
 
-The penguins dataset includes size measurments for adult foraging penguins near Palmer Station Antartica.
+The penguins data set includes size measurements for adult foraging penguins near Palmer Station Antarctica.
+Important variables in this data set include 
 It contains measurements for `r nrow(penguins)` penguins across `r ncol(penguins)` variables. 
 The mean flipper length is `r mean(pull(penguins, flipper_length_mm), na.rm = TRUE)`
 `
 ```{r}
 # scatterplot
 
-penguin_plot = ggplot(penguins, aes(x= bill_length_mm, y= flipper_length_mm, color = species)) + geom_point()
+penguin_plot = ggplot(penguins, 
+                      aes(x= bill_length_mm, y= flipper_length_mm, color = species)) + geom_point()
 
-ggsave(penguin_plot)
+ggsave("penguin_plot.png")
 ```
 
+
+## Problem 2
+
+```{r}
+set.seed(0)
+data = tibble( 
+  num_var = rnorm(10),
+  log_var = num_var > 0,
+  char_var = character(10),
+  factor_var = factor(10, levels = 3)
+  )
+
+mean(pull(data,num_var))
+mean(pull(data,log_var))
+
+```
+Calculating the mean works for the random sample and logical vector. It does not work for the character or factor vector since it is not numeric. 
+
+
+```{r}
+num_log = as.numeric(pull(data,log_var))
+num_char = as.numeric(pull(data,char_var))
+num_factor = as.numeric(pull(data,factor_var))
+```
+
+The logical vector returns numeric 0s and 1s, the character and factor vector return NA only.
+This explains what happens when you try to take the mean of each variable because it cannot be calculated on non-numeric variables. 
